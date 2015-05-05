@@ -29,7 +29,8 @@ ENV DB_USER ttrss
 ENV DB_PASS ttrss
 
 # always re-configure database with current ENV when RUNning container, then monitor all services
+ADD ports.sh /ports.sh
 ADD configure-db.php /configure-db.php
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-CMD php /configure-db.php && supervisord -c /etc/supervisor/conf.d/supervisord.conf
+CMD bash /ports.sh && php /configure-db.php && supervisord -c /etc/supervisor/conf.d/supervisord.conf
 
